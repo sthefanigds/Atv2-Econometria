@@ -1,0 +1,260 @@
+  ```R
+# Importar os dados
+dados <- read.table(text = "Data Exportacoes Taxade_Cambio Taxadejuros_BR IGP_M IPC_EUA Taxadejuros_EUA COVID IBC_BR
+2019.01 16.638 3,74 1 707 252 3 0 133.64
+2019.02 15.618 3,72 0 714 253 3 0 134
+2019.03 17.309 3,85 0 723 254 2 0 139.14
+2019.04 19.091 3,90 1 729 256 2 0 139.8
+2019.05 20.500 4,00 1 733 256 2 0 139.54
+2019.06 18.307 3,86 0 738 256 2 0 135.25
+2019.07 19.921 3,78 1 741 257 2 0 143.27
+2019.08 19.566 4,02 1 736 257 2 0 142.06
+2019.09 18.621 4,12 0 736 257 2 0 138.43
+2019.10 19.484 4,09 0 741 257 2 0 143.06
+2019.11 17.610 4,15 0 744 257 2 0 139.02
+2019.12 18.463 4,11 0 759 257 2 1 137.55
+2020.01 14.430 4,15 0 763 258 2 1 134.02
+2020.02 15.356 4,34 0 762 259 1 1 134.46
+2020.03 18.312 4,88 0 772 258 0 1 136.13
+2020.04 17.594 5,32 0 778 256 0 1 118.44
+2020.05 17.520 5,64 0 780 256 0 1 119.57
+2020.06 17.479 5,20 0 792 258 0 1 125.94
+2020.07 19.416 5,28 0 810 259 0 1 135.95
+2020.08 17.404 5,46 0 832 260 0 1 135.74
+2020.09 18.223 5,40 0 868 260 0 1 137.17
+2020.10 17.649 5,63 0 897 260 0 1 139.86
+2020.11 17.345 5,42 0 926 260 0 1 138.2
+2020.12 18.452 5,14 0 935 260 0 1 139.35
+2021.01 14.948 5,36 0 959 262 0 1 131.2
+2021.02 16.375 5,42 0 983 263 0 1 134.24
+2021.03 24.336 5,65 0 1.012 265 0 1 144.76
+2021.04 26.059 5,56 0 1.027 267 0 1 139.3
+2021.05 26.201 5,29 0 1.069 269 0 1 137.7
+2021.06 28.258 5,03 0 1.076 272 0 1 137.92
+2021.07 25.509 5,16 0 1.084 273 0 1 143.07
+2021.08 27.216 5,25 0 1.091 274 0 1 141.94
+2021.09 24.376 5,28 0 1.084 274 0 1 138.74
+2021.10 22.603 5,54 0 1.091 277 0 1 138.01
+2021.11 20.502 5,56 1 1.091 278 1 1 139.69
+2021.12 24.432 5,65 1 1.101 279 1 1 141.53
+2022.01 19.780 5,53 1 1.121 281 1 0 131.54
+2022.02 23.513 5,20 1 1.142 284 1 0 136.67
+2022.03 29.422 4,97 1 1.161 288 2 0 149.61
+2022.04 28.970 4,76 1 1.178 289 3 0 143.34
+2022.05 29.643 4,95 1 1.184 292 3 0 142.77
+2022.06 32.742 5,05 1 1.191 296 3 0 141.91
+2022.07 29.844 5,37 1 1.193 296 3 0 148.79
+2022.08 30.787 5,14 1 1.185 296 3 0 149.37
+2022.09 28.587 5,24 1 1.174 297 1 0 144.35
+2022.10 26.852 5,25 1 1.162 298 1 0 142.71
+2022.11 27.652 5,27 1 1.156 298 5 0 140.98
+2022.12 26.342 5,24 1 1.161 297 4 0 142.19
+2023.01 22.796 5,20 1 1.163 299 4 0 135.83
+2023.02 20.242 5,17 1 1.163 301 5 0 140.77
+2023.03 32.823 5,21 1 1.163 302 4 0 158.23
+2023.04 27.100 5,02 1 1.152 303 4 0 148.61
+2023.05 32.666 4,98 1 1.131 304 4 0 146.93
+2023.06 29.600 4,85 1 1.109 305 5 0 145.67
+2023.07 28.300 4,80 1 1.101 306 5 0 150.4
+2023.08 31.101 4,90 1 1.100 307 5 0 151.32
+2023.09 28.713 4,94 1 1.104 308 5 0 144.9
+2023.10 29.682 5,06 1 1.109 308 5 0 145.09
+2023.11 27.886 4,90 1 1.116 307 5 0 144.34
+2023.12 28.786 4,90 1 1.124 307 4 0 144.13", header = TRUE)
+
+# Ajustar o modelo de regressão
+modelo <- lm(Exportacoes ~ Taxade_Cambio + Taxadejuros_BR + IGP_M + IPC_EUA + Taxadejuros_EUA + COVID + IBC_BR, data = dados)
+
+# Resumo da análise de regressão
+summary(modelo)
+# Graus de Liberdade # 
+> cat("Graus de Liberdade Total (df_total):", df_total, "\n")
+Graus de Liberdade Total (df_total): 59 
+> cat("Graus de Liberdade Residuais (df_res):", df_res, "\n")
+Graus de Liberdade Residuais (df_res): 57 
+> cat("Graus de Liberdade dos Resíduos (df_residuos):", df_residuos, "\n")
+Graus de Liberdade dos Resíduos (df_residuos): 59 
+#ANALISE ANOVA ##
+> # Realizar a análise de variância (ANOVA)
+  > anova_resultado <- anova(modelo)
+> 
+  > # Imprimir os resultados
+  > print(anova_resultado)
+
+# Supondo que os dados estejam em um data frame chamado 'dados'
+
+# Instalar e carregar pacotes necessários
+install.packages(c("lmtest", "sandwich"))
+library(lmtest)
+library(sandwich)
+
+# Ajustar o modelo
+modelo <- lm(Exportacoes ~ Taxade_Cambio + Taxadejuros_BR + IGP_M + IPC_EUA + Taxadejuros_EUA + COVID + IBC_BR, data = dados)
+
+# Resíduos
+residuos <- resid(modelo)
+
+# Teste de Heterocedasticidade (Breusch-Pagan)
+het_test <- bptest(modelo)
+print("Teste de Heterocedasticidade:")
+print(het_test)
+
+# Normalidade dos Resíduos (Teste de Shapiro-Wilk)
+shapiro_test <- shapiro.test(residuos)
+print("Teste de Shapiro-Wilk para Normalidade dos Resíduos:")
+print(shapiro_test)
+
+# Gráficos
+par(mfrow = c(2, 2))
+
+# Gráfico de Resíduos Padrão vs. Valores Ajustados
+plot(modelo, which = 1)
+
+# Gráfico de Q-Q dos Resíduos
+qqplot(residuos)
+
+# Gráfico de Resíduos Padrão vs. Valores Preditos
+plot(modelo, which = 3)
+
+# Gráfico de Alavanca (Leverage) vs. Resíduos Padrão
+plot(modelo, which = 5)
+
+# Resetar o layout gráfico
+par(mfrow = c(1, 1))
+ dados$Taxade_Cambio <- as.numeric(gsub(",", ".", dados$Taxade_Cambio))
+ dados$Taxadejuros_BR <- as.numeric(gsub(",", ".", dados$Taxadejuros_BR))
+ dados$IPC_EUA <- as.numeric(gsub(",", ".", dados$IPC_EUA))
+ dados$Taxadejuros_EUA <- as.numeric(gsub(",", ".", dados$Taxadejuros_EUA))
+ dados$COVID <- as.numeric(gsub(",", ".", dados$COVID))
+ 
+# ANALISE LOGARITMA 
+
+# Transformando as variáveis em logaritmos
+dados$log_Exportacoes <- log(dados$Exportacoes)
+dados$log_Taxade_Cambio <- log(dados$Taxade_Cambio)
+dados$log_Taxadejuros_BR <- log(dados$Taxadejuros_BR)
+dados$log_IGP_M <- log(dados$IGP_M)
+dados$log_IPC_EUA <- log(dados$IPC_EUA)
+dados$log_Taxadejuros_EUA <- log(dados$Taxadejuros_EUA)
+dados$log_COVID <- log(dados$COVID)
+dados$log_IBC_BR <- log(dados$`IBC_BR`)
+
+# Criando um gráfico com as variáveis transformadas
+par(mfrow = c(2, 4))  # Organizando os gráficos em 2 linhas e 4 colunas
+
+# Gráfico para Exportações
+hist(dados$log_Exportacoes, main = "Log(Exportações)", xlab = "Log(Exportações)", col = "lightblue")
+
+# Gráfico para Taxa de Câmbio
+hist(dados$log_Taxade_Cambio, main = "Log(Taxa de Câmbio)", xlab = "Log(Taxa de Câmbio)", col = "lightblue")
+
+#Gráfico para Taxa de Juros BR
+hist(dados$log_Taxadejuros_BR, main = "Log(Taxa de Juros -BR)", xlab = "Log(Taxa de Juros- BR)", col = "lightblue")
+#Gráfico para IPC-EUA
+hist(dados$log_IPC_EUA, main = "Log(IPC - EUA)", xlab = "Log(IPC-EUA)", col = "lightblue")
+
+# ANÁLISE DE ELASTICIDADE # 
+
+# Ajustando o modelo para a taxa de juros brasileira
+modelo_juros_BR <- lm((Exportacoes) ~ (Taxadejuros_BR), data = dados)
+
+# Resumo do modelo
+summary(modelo_juros_BR)
+
+# Coeficientes estimados do modelo
+coeficientes_juros_BR <- coef(modelo_juros_BR)
+
+# Calculando a elasticidade da taxa de juros brasileira
+elasticidade_juros_BR <- exp(coeficientes_juros_BR['(Taxadejuros_BR)'])
+
+# Imprimindo a elasticidade da taxa de juros brasileira
+cat("Elasticidade da Taxa de Juros Brasileira:\n")
+print(elasticidade_juros_BR)
+
+# Ajustando o modelo para a taxa de juros americana
+modelo_juros_EUA <- lm((Exportacoes) ~ (Taxadejuros_EUA), data = dados)
+
+# Resumo do modelo
+summary(modelo_juros_EUA)
+
+# Coeficientes estimados do modelo
+coeficientes_juros_EUA <- coef(modelo_juros_EUA)
+
+# Calculando a elasticidade da taxa de juros americana
+elasticidade_juros_EUA <- exp(coeficientes_juros_EUA['(Taxadejuros_EUA)'])
+
+# Imprimindo a elasticidade da taxa de juros americana
+cat("Elasticidade da Taxa de Juros Americana:\n")
+print(elasticidade_juros_EUA)
+
+# Ajustando o modelo de regressão linear múltipla
+modelo <- lm(Exportacoes ~ Taxadejuros_BR + Taxadejuros_EUA, data = dados)
+
+# Resumo do modelo
+summary(modelo)
+
+# Coeficientes estimados do modelo
+coeficientes <- coef(modelo)
+
+# Imprimindo os resultados
+cat("Coeficientes do modelo:\n")
+print(coeficientes)
+
+## ELASTICIDADES ##
+# Supondo que 'modelo' seja o modelo de regressão linear múltipla já ajustado
+
+# Obtendo os coeficientes do modelo
+coeficientes <- coef(modelo)
+
+# Calculando as elasticidades para cada variável independente
+elasticidades <- coeficientes[-1] * (dados[-1] / dados$Exportacoes)
+
+# Adicionando os coeficientes do intercepto (se necessário)
+elasticidades <- c(coeficientes[1], elasticidades)
+
+# Imprimindo as elasticidades
+cat("Elasticidades:\n")
+print(elasticidades)
+
+## RESUMO FINAL ##
+Vamos criar um código em R para calcular os resultados mencionados anteriormente. Antes de prosseguir, certifique-se de ter os dados carregados no ambiente R. Vamos supor que os dados estejam em um dataframe chamado `dados_regressao`.
+
+```R
+
+
+# Ajuste do modelo de regressão
+modelo <- lm(Exportacoes ~ Taxadejuros_BR + Taxadejuros_EUA + COVID + Taxade_Cambio, data = dados)
+
+# Imprimir coeficientes estimados
+cat("Coeficiente do Intercepto:", coef(modelo)[1], "\n")
+cat("Coeficiente Taxa de Juros Brasileira:", coef(modelo)[2], "\n")
+cat("Coeficiente Taxa de Juros Americana:", coef(modelo)[3], "\n")
+cat("Coeficiente Exportações:", coef(modelo)[4], "\n")
+cat("Coeficiente Taxa de Câmbio:", coef(modelo)[5], "\n")
+
+# Calcular elasticidades
+elasticidade_exportacoes <- coef(modelo)[4] * mean(dados$Exportacoes) / mean(dados$Exportacoes)
+elasticidade_taxa_cambio <- coef(modelo)[5] * mean(dados$TaxaCambio) / mean(dados$Exportacoes)
+elasticidade_taxa_juros_BR <- coef(modelo)[2] * mean(dados$Taxadejuros_BR) /  mean(dados$Exportacoes)
+elasticidade_taxa_juros_EUA <- coef(modelo)[3] * mean(dados$Taxadejuros_EUA) /  mean(dados$Exportacoes)
+cat("Elasticidade em relação às Exportações:", elasticidade_exportacoes, "\n")
+cat("Elasticidade em relação à Taxa de Câmbio:", elasticidade_taxa_cambio, "\n")
+cat("Elasticidade em relação à Taxa de Juros Brasileira:", elasticidade_taxa_juros_BR, "\n")
+cat("Elasticidade em relação à Taxa de Juros Americana:", elasticidade_taxa_juros_EUA, "\n")
+
+# Imprimir Graus de Liberdade
+df_total <- length(modelo$residuals) + length(coef(modelo))
+df_res <- length(modelo$residuals)
+df_residuos <- length(modelo$residuals) - length(coef(modelo))
+
+cat("Graus de Liberdade Total (df_total):", df_total, "\n")
+cat("Graus de Liberdade Residuais (df_res):", df_res, "\n")
+cat("Graus de Liberdade dos Resíduos (df_residuos):", df_residuos, "\n")
+
+# R-squared
+cat("R-squared (R²):", summary(modelo)$r.squared, "\n")
+
+# Teste F
+cat("Valor do Teste F:", summary(modelo)$fstatistic[1], "\n")
+cat("P-valor do Teste F:", summary(modelo)$fstatistic[2], "\n")
+
